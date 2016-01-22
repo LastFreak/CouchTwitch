@@ -199,22 +199,65 @@ namespace CouchTwitch
             menu.IsPaneOpen = !menu.IsPaneOpen;
         }
 
-        private void tglPlaySound_Click(object sender, RoutedEventArgs e)
-        {
-            PlaySound = tglPlaySound.IsChecked.Value;
-            if(tglPlaySound.IsChecked.Value)
-            {
-                mediaAudioStream.Play();
-            }
-            else
-            {
-                mediaAudioStream.Stop();
-            }
-        }
+        //Eventuell ausbauen:
+
+        //private void tglPlaySound_Click(object sender, RoutedEventArgs e)
+        //{
+        //    PlaySound = tglPlaySound.IsChecked.Value;
+        //    if(tglPlaySound.IsChecked.Value)
+        //    {
+        //        mediaAudioStream.Play();
+        //    }
+        //    else
+        //    {
+        //        mediaAudioStream.Stop();
+        //    }
+        //}
 
         private void btnFullScreen_Click(object sender, RoutedEventArgs e)
         {
             ClientSendMessage("FULL:");
+        }
+
+        private void lstChat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        //Ab hier UI-spezifischer Code
+
+
+        private void ChangePCPhone_Click(object sender, RoutedEventArgs e)
+        {
+            if (PCLogo.Visibility == Visibility.Visible)
+            {
+                PCLogo.Visibility = Visibility.Collapsed;
+                PhoneLogo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PCLogo.Visibility = Visibility.Visible;
+                PhoneLogo.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Pause.Visibility == Visibility.Visible)
+            {
+                Pause.Visibility = Visibility.Collapsed;
+                Play.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Pause.Visibility = Visibility.Visible;
+                Play.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)  //Zeige followed Streams
+        {
+            menu.IsPaneOpen = !menu.IsPaneOpen;
         }
     }
 }

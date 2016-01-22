@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <AppBar>
             <StackPanel Orientation="Horizontal">
-                <AppBarButton x:ConnectionId='1' Icon="Contact" x:Name="btnLogin"                       />
-                <AppBarToggleButton x:ConnectionId='2' Icon="Volume" x:Name="tglPlaySound"                           />
-                <AppBarButton x:ConnectionId='3' Icon="FullScreen" x:Name="btnFullScreen"                            />
+                <AppBarButton Icon="Contact" x:Name="btnLogin" Click="btnLogin_Click"/>
+                <AppBarToggleButton Icon="Volume" x:Name="tglPlaySound" Click="tglPlaySound_Click"/>
+                <AppBarButton Icon="FullScreen" x:Name="btnFullScreen" Click="btnFullScreen_Click"/>
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
@@ -25,10 +25,10 @@
             <ColumnDefinition Width="0.9*"/>
             <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:ConnectionId='4' x:Name="txtToken" PlaceholderText="Chat" Grid.Row="1" Grid.Column="0"                           />
-        <MediaElement x:ConnectionId='5' x:Name="mediaElement" Grid.Row="0" Grid.Column="0"/>
+        <TextBox x:Name="txtToken" PlaceholderText="Chat" Grid.Row="1" Grid.Column="0" KeyDown="txtToken_KeyDown"/>
+        <MediaElement x:Name="mediaElement" Grid.Row="0" Grid.Column="0"/>
 
-        <ListView x:ConnectionId='6' x:Name="lstChat"  Grid.Column="0" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        <ListView x:Name="lstChat"  Grid.Column="0" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -43,12 +43,12 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button x:ConnectionId='7' x:Name="btnHamburger" Grid.Column="1" Grid.Row="0" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top" Content="&#xE700;" 
-                                                   HorizontalAlignment="Left"/>
+        <Button x:Name="btnHamburger" Grid.Column="1" Grid.Row="0" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top" Content="&#xE700;" 
+                        Click="btnHamburger_Click" HorizontalAlignment="Left"/>
         
-        <SplitView x:ConnectionId='8' x:Name="menu"  PanePlacement="Right" Grid.ColumnSpan="2">
+        <SplitView x:Name="menu"  PanePlacement="Right" Grid.ColumnSpan="2">
             <SplitView.Pane>
-                <ListView x:ConnectionId='12' x:Name="lstFollows"                                               >
+                <ListView x:Name="lstFollows" SelectionChanged="lstFollows_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -64,13 +64,118 @@
                 </ListView>
             </SplitView.Pane>
         </SplitView>
-        <MediaElement x:ConnectionId='9' x:Name="mediaAudioStream" Visibility="Collapsed"/>
-        <!--ContentDialog-->
-        <ContentDialog x:ConnectionId='10' x:Name="cdIP" PrimaryButtonText="Verbinden" SecondaryButtonText="Abbrechen" Title="Server-IP angeben"                     >
+        <MediaElement x:Name="mediaAudioStream" Visibility="Collapsed"/>
+        --><!--ContentDialog--><!--
+        <ContentDialog x:Name="cdIP" PrimaryButtonText="Verbinden" SecondaryButtonText="Abbrechen" Title="Server-IP angeben" Opened="cdIP_Opened">
             <StackPanel>
-            <TextBox x:ConnectionId='11' x:Name="txtIP"/>
+            <TextBox x:Name="txtIP"/>
             </StackPanel>
         </ContentDialog>
-    </Grid>
+    </Grid>-->
+    
+    
+    <SplitView x:ConnectionId='1' Name="menu" IsPaneOpen="False" PanePlacement="Right" >
+        <SplitView.Content>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:ConnectionId='13' Content="&#xE77B;" x:Name="btnLogin"                        FontFamily="Segoe MDL2 Assets" FontSize="20" Background="{x:Null}" Grid.Column="0"/>
+                    <AutoSuggestBox Grid.Column="1" PlaceholderText="Streams suchen" QueryIcon="Find"/>
+                    <Button x:ConnectionId='14' Grid.Column="2" Background="{x:Null}" FontFamily="Segoe MDL2 Assets" Content="&#xE728;"                      FontSize="20"/>
+                    <!--&#xE24A;&#xE017;-->
+                </Grid>
+                <ListView x:ConnectionId='2' x:Name="lstChat" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Visible"                                            >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.25*"/>
+                                    <ColumnDefinition Width="0.75*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding User}" FontWeight="Bold" Foreground="Red" FontSize="10" Grid.Column="0"/>
+                                <TextBlock Text="{Binding Message}" FontSize="10" TextWrapping="WrapWholeWords" Grid.Column="1" Margin="5,0,0,0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:ConnectionId='12' x:Name="txtToken" PlaceholderText="Chat" Grid.Column="0"                           />
+                    <Button FontFamily="Segoe MDL2 Assets" Content="&#xE122;" Grid.Column="1" Background="{x:Null}" FontSize="20"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+                    <Button x:ConnectionId='6' VerticalAlignment="Center" Margin="5,0,5,0" Background="{x:Null}" Name="ChangePCPhone"                            >
+                        <Grid>
+                            <TextBlock x:ConnectionId='10' Text="&#xE25A;" Name="PCLogo" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" FontSize="20"/>
+                            <TextBlock x:ConnectionId='11' Text="&#xE703;" Name="PhoneLogo" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                        </Grid>
+                    </Button>
+                    <Button x:ConnectionId='7' VerticalAlignment="Center" Margin="5,0,5,0" Background="{x:Null}" Name="PlayPauseButton"                              >
+                        <Grid>
+                            <TextBlock x:ConnectionId='8' FontFamily="Segoe MDL2 Assets" Text="&#xE769;" Name="Pause" Visibility="Collapsed" FontSize="20"/>
+                            <TextBlock x:ConnectionId='9' FontFamily="Segoe MDL2 Assets" Text="&#xE768;" Name="Play" FontSize="20"/>
+                        </Grid>
+                    </Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE15D;" VerticalAlignment="Center" Margin="5,0,5,0" FontSize="20"/>
+                        <!--Lautsprecher gibt es auch von &#xE992 bis 995-->
+                        <Slider MinWidth="150"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text="UI-Ver 0.1" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3"/>
+                <MediaElement x:ConnectionId='3' x:Name="mediaAudioStream" Visibility="Collapsed"/>
+                <ContentDialog x:ConnectionId='4' x:Name="cdIP" PrimaryButtonText="Verbinden" SecondaryButtonText="Abbrechen" Title="Server-IP angeben"                      Grid.RowSpan="3">
+                    <StackPanel>
+                        <TextBox x:ConnectionId='5' x:Name="txtIP"/>
+                    </StackPanel>
+                </ContentDialog>
+            </Grid>
+        </SplitView.Content>
+        <SplitView.Pane>
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Gefolgte Kanäle" Grid.Column="0"/>
+                    <Button x:ConnectionId='16' Content="X" Grid.Column="1"                     />
+                </Grid>
+                <ListView x:ConnectionId='15' Name="lstFollows"                                               >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Width="50" Height="50">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding Logo}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding DisplayName}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="50" Height="50"/>
+                                        <!--<TextBlock Text="(Online-Status)"/>-->
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </SplitView.Pane>
+    </SplitView>
 </Page>
 

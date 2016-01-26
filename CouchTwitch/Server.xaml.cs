@@ -90,8 +90,9 @@ namespace CouchTwitch
                     string msg = reader.ReadString(StringLengh);
                     Debug.WriteLine(msg);
                     
-                    string command = msg.Substring(0, 4);
-                    msg = msg.Substring(5);
+                    string command = msg.Split(':')[0];
+                    msg = msg.Substring(msg.IndexOf(':') + 1);
+                    Debug.WriteLine(msg);
                     switch (command){
                         case "SURI":
                             StreamUri = new Uri(msg);
@@ -108,6 +109,15 @@ namespace CouchTwitch
                                     ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
                                 }
                             });
+                            break;
+                        case "VOL":
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                mediaStream.Volume = Convert.ToDouble(msg);
+                            });
+                            break;
+                        case "PLAY":
+                            //TODO: Add code.
                             break;
                     }
                     

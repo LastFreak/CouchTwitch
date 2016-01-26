@@ -89,9 +89,9 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:ConnectionId='13' Content="&#xE77B;" x:Name="btnLogin"                        FontFamily="Segoe MDL2 Assets" FontSize="20" Background="{x:Null}" Grid.Column="0"/>
+                    <Button x:ConnectionId='14' Content="&#xE77B;" x:Name="btnLogin"                        FontFamily="Segoe MDL2 Assets" FontSize="20" Background="{x:Null}" Grid.Column="0"/>
                     <AutoSuggestBox Grid.Column="1" PlaceholderText="Streams suchen" QueryIcon="Find"/>
-                    <Button x:ConnectionId='14' Grid.Column="2" Background="{x:Null}" FontFamily="Segoe MDL2 Assets" Content="&#xE728;"                      FontSize="20"/>
+                    <Button x:ConnectionId='15' Grid.Column="2" Background="{x:Null}" FontFamily="Segoe MDL2 Assets" Content="&#xE728;"                      FontSize="20"/>
                     <!--&#xE24A;&#xE017;-->
                 </Grid>
                 <ListView x:ConnectionId='2' x:Name="lstChat" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Visible"                                            >
@@ -113,30 +113,30 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:ConnectionId='12' x:Name="txtToken" PlaceholderText="Chat" Grid.Column="0"                           />
+                    <TextBox x:ConnectionId='13' x:Name="txtToken" PlaceholderText="Chat" Grid.Column="0"                           />
                     <Button FontFamily="Segoe MDL2 Assets" Content="&#xE122;" Grid.Column="1" Background="{x:Null}" FontSize="20"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
                     <Button x:ConnectionId='6' VerticalAlignment="Center" Margin="5,0,5,0" Background="{x:Null}" Name="ChangePCPhone"                            >
                         <Grid>
-                            <TextBlock x:ConnectionId='10' Text="&#xE25A;" Name="PCLogo" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" FontSize="20"/>
-                            <TextBlock x:ConnectionId='11' Text="&#xE703;" Name="PhoneLogo" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                            <TextBlock x:ConnectionId='11' Text="&#xE25A;" Name="PCLogo" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" FontSize="20"/>
+                            <TextBlock x:ConnectionId='12' Text="&#xE703;" Name="PhoneLogo" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
                         </Grid>
                     </Button>
                     <Button x:ConnectionId='7' VerticalAlignment="Center" Margin="5,0,5,0" Background="{x:Null}" Name="PlayPauseButton"                              >
                         <Grid>
-                            <TextBlock x:ConnectionId='8' FontFamily="Segoe MDL2 Assets" Text="&#xE769;" Name="Pause" Visibility="Collapsed" FontSize="20"/>
-                            <TextBlock x:ConnectionId='9' FontFamily="Segoe MDL2 Assets" Text="&#xE768;" Name="Play" FontSize="20"/>
+                            <TextBlock x:ConnectionId='9' FontFamily="Segoe MDL2 Assets" Text="&#xE769;" Name="Pause" Visibility="Collapsed" FontSize="20"/>
+                            <TextBlock x:ConnectionId='10' FontFamily="Segoe MDL2 Assets" Text="&#xE768;" Name="Play" FontSize="20"/>
                         </Grid>
                     </Button>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE15D;" VerticalAlignment="Center" Margin="5,0,5,0" FontSize="20"/>
                         <!--Lautsprecher gibt es auch von &#xE992 bis 995-->
-                        <Slider MinWidth="150"/>
+                        <Slider x:ConnectionId='8' x:Name="sldVolume" MinWidth="150"                                      />
                     </StackPanel>
                 </StackPanel>
                 <TextBlock Text="UI-Ver 0.1" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3"/>
-                <MediaElement x:ConnectionId='3' x:Name="mediaAudioStream" Visibility="Collapsed"/>
+                <MediaElement x:ConnectionId='3' x:Name="mediaAudioStream" Visibility="Collapsed" Grid.Row="1"/>
                 <ContentDialog x:ConnectionId='4' x:Name="cdIP" PrimaryButtonText="Verbinden" SecondaryButtonText="Abbrechen" Title="Server-IP angeben"                      Grid.RowSpan="3">
                     <StackPanel>
                         <TextBox x:ConnectionId='5' x:Name="txtIP"/>
@@ -152,9 +152,9 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Gefolgte Kanäle" Grid.Column="0"/>
-                    <Button x:ConnectionId='16' Content="X" Grid.Column="1"                     />
+                    <Button x:ConnectionId='17' Content="X" Grid.Column="1"                     />
                 </Grid>
-                <ListView x:ConnectionId='15' Name="lstFollows"                                               >
+                <ListView x:ConnectionId='16' Name="lstFollows"                                               >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

@@ -402,3 +402,4 @@ C:\Users\linus\Documents\Visual Studio 2015\Projects\CouchTwitch\CouchTwitch\Cou
 C:\Users\linus\Documents\Visual Studio 2015\Projects\CouchTwitch\CouchTwitch\CouchTwitch\obj\x64\Debug\qualifiers.txt.intermediate
 C:\Users\linus\Documents\Visual Studio 2015\Projects\CouchTwitch\CouchTwitch\CouchTwitch\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\linus\Documents\Visual Studio 2015\Projects\CouchTwitch\CouchTwitch\CouchTwitch\obj\x64\Debug\ProjectArchitectures.txt
+D:\Entwickeln\Visual Studio\Teamprojekte\CouchTwitch\CouchTwitch\obj\x64\Debug\CouchTwitch.csprojResolveAssemblyReference.cache

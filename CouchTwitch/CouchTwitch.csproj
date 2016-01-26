@@ -104,6 +104,7 @@
     <Compile Include="Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CTServer.cs" />
     <Compile Include="Follows.cs" />
     <Compile Include="FollowStream.cs" />
     <Compile Include="Irc.cs" />

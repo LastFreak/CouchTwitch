@@ -30,9 +30,8 @@ namespace CouchTwitch
     /// </summary>
     public sealed partial class Client : Page
     {
-        private StreamSocket socket;
+        private CTClient server = new CTClient();
         public Irc irc;
-        private HostName hostname;
 
         private bool PlaySound = false;
 
@@ -93,12 +92,12 @@ namespace CouchTwitch
             ContentDialogResult result = await cdIP.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                hostname = new HostName(txtIP.Text);
+                server.hostname = new HostName(txtIP.Text);
             }
-            socket = new StreamSocket();
+            
             try
             {
-                await socket.ConnectAsync(hostname, "56789");
+                await server.socket.ConnectAsync(server.hostname, "56789");
             }
             catch
             {
@@ -154,37 +153,17 @@ namespace CouchTwitch
 
             #region sendURI
             string message = "SURI:" + url;
-            ClientSendMessage(message);
+            server.ClientSendMessage(message);
             #endregion 
         }
 
-        private async void ClientSendMessage(string stringToSend)
-        {
-            if (socket == null || stringToSend == "") return;
-
-            DataWriter writer = new DataWriter(socket.OutputStream);
-
-            writer.WriteUInt32(writer.MeasureString(stringToSend));
-            writer.WriteString(stringToSend);
-            Debug.WriteLine(stringToSend);
-            try
-            {
-                await writer.StoreAsync();
-                writer.DetachStream();
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception.Message);
-            }
-        }
+        
 
         private void txtToken_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if(e.Key == Windows.System.VirtualKey.Enter)
             {
-                Debug.WriteLine(txtToken.Text);
-                irc.SendChatMessage(txtToken.Text);
-                txtToken.Text = "";
+                
             }
         }
 
@@ -216,7 +195,7 @@ namespace CouchTwitch
 
         private void btnFullScreen_Click(object sender, RoutedEventArgs e)
         {
-            ClientSendMessage("FULL:");
+            server.ClientSendMessage("FULL:");
         }
 
         private void lstChat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -233,20 +212,24 @@ namespace CouchTwitch
             {
                 PCLogo.Visibility = Visibility.Collapsed;
                 PhoneLogo.Visibility = Visibility.Visible;
+                mediaAudioStream.Visibility = Visibility.Visible;
             }
             else
             {
                 PCLogo.Visibility = Visibility.Visible;
                 PhoneLogo.Visibility = Visibility.Collapsed;
+                mediaAudioStream.Visibility = Visibility.Collapsed;
             }
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
+            server.ClientSendMessage("PLAY:");
             if (Pause.Visibility == Visibility.Visible)
             {
                 Pause.Visibility = Visibility.Collapsed;
                 Play.Visibility = Visibility.Visible;
+                
             }
             else
             {
@@ -258,6 +241,19 @@ namespace CouchTwitch
         private void Button_Click(object sender, RoutedEventArgs e)  //Zeige followed Streams
         {
             menu.IsPaneOpen = !menu.IsPaneOpen;
+        }
+
+        private void sldVolume_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            server.ClientSendMessage("VOL:" + (e.NewValue/100) .ToString());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //Irc Message
+            Debug.WriteLine(txtToken.Text);
+            irc.SendChatMessage(txtToken.Text);
+            txtToken.Text = "";
         }
     }
 }

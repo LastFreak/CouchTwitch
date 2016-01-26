@@ -114,7 +114,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="txtToken" PlaceholderText="Chat" Grid.Column="0" KeyDown="txtToken_KeyDown"/>
-                    <Button FontFamily="Segoe MDL2 Assets" Content="&#xE122;" Grid.Column="1" Background="{x:Null}" FontSize="20"/>
+                    <Button FontFamily="Segoe MDL2 Assets" Content="&#xE122;" Grid.Column="1" Background="{x:Null}" FontSize="20" Click="Button_Click_1"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
                     <Button VerticalAlignment="Center" Margin="5,0,5,0" Background="{x:Null}" Name="ChangePCPhone" Click="ChangePCPhone_Click">
@@ -132,11 +132,11 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE15D;" VerticalAlignment="Center" Margin="5,0,5,0" FontSize="20"/>
                         <!--Lautsprecher gibt es auch von &#xE992 bis 995-->
-                        <Slider MinWidth="150"/>
+                        <Slider x:Name="sldVolume" MinWidth="150" ValueChanged="sldVolume_ValueChanged"/>
                     </StackPanel>
                 </StackPanel>
                 <TextBlock Text="UI-Ver 0.1" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3"/>
-                <MediaElement x:Name="mediaAudioStream" Visibility="Collapsed"/>
+                <MediaElement x:Name="mediaAudioStream" Visibility="Collapsed" Grid.Row="1"/>
                 <ContentDialog x:Name="cdIP" PrimaryButtonText="Verbinden" SecondaryButtonText="Abbrechen" Title="Server-IP angeben" Opened="cdIP_Opened" Grid.RowSpan="3">
                     <StackPanel>
                         <TextBox x:Name="txtIP"/>

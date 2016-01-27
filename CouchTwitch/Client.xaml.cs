@@ -1,6 +1,7 @@
 ﻿using CouchTwitch.CouchTwitch;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ using Windows.Networking.Sockets;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -62,9 +64,6 @@ namespace CouchTwitch
 
         private async void Request()
         {
-
-            
-
             Debug.WriteLine((string)ApplicationData.Current.LocalSettings.Values["token"]);
             User user = (User)await ApiHelper.apiRequest<User>("https://api.twitch.tv/kraken/user?oauth_token=" + ApplicationData.Current.LocalSettings.Values["token"]);
             FollowStream streams = (FollowStream)await ApiHelper.apiRequest<FollowStream>("https://api.twitch.tv/kraken/streams/followed?oauth_token=" + ApplicationData.Current.LocalSettings.Values["token"]);
@@ -152,7 +151,7 @@ namespace CouchTwitch
             }
 
             #region sendURI
-            string message = "SURI:" + url;
+            string message = "SURI " + url;
             server.ClientSendMessage(message);
             #endregion 
         }
@@ -195,7 +194,7 @@ namespace CouchTwitch
 
         private void btnFullScreen_Click(object sender, RoutedEventArgs e)
         {
-            server.ClientSendMessage("FULL:");
+            server.ClientSendMessage("FULL ");
         }
 
         private void lstChat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -224,7 +223,7 @@ namespace CouchTwitch
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            server.ClientSendMessage("PLAY:");
+            server.ClientSendMessage("FULL ");
             if (Pause.Visibility == Visibility.Visible)
             {
                 Pause.Visibility = Visibility.Collapsed;
@@ -245,7 +244,8 @@ namespace CouchTwitch
 
         private void sldVolume_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            server.ClientSendMessage("VOL:" + (e.NewValue/100) .ToString());
+            mediaAudioStream.Volume = e.NewValue / 100;
+            server.ClientSendMessage("VOL " + (e.NewValue/100) .ToString());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -254,6 +254,27 @@ namespace CouchTwitch
             Debug.WriteLine(txtToken.Text);
             irc.SendChatMessage(txtToken.Text);
             txtToken.Text = "";
+        }
+
+        private void lstChat_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if(lstChat.Items.Count != 0)
+            lstChat.ScrollIntoView(lstChat.Items.Last());
+            
+        }
+
+        private void btnSoundTgl_Click(object sender, RoutedEventArgs e)
+        {
+            mediaAudioStream.IsMuted = !mediaAudioStream.IsMuted;
+            //server.ClientSendMessage("SYNC " + DateTime.Now.ToString());
+            //mediaAudioStream.Stop();
+            //DateTime goal = DateTime.Now;
+            //goal = goal.AddSeconds(10);
+            //while(goal.Second != DateTime.Now.Second)
+            //{
+
+            //}
+            //mediaAudioStream.Play();
         }
     }
 }

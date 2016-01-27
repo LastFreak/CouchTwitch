@@ -90,12 +90,12 @@ namespace CouchTwitch
                     string msg = reader.ReadString(StringLengh);
                     Debug.WriteLine(msg);
                     
-                    string command = msg.Split(':')[0];
-                    msg = msg.Substring(msg.IndexOf(':') + 1);
+                    string command = msg.Split(' ')[0];
+                    string[] cmd = msg.Split(' ');
                     Debug.WriteLine(msg);
-                    switch (command){
+                    switch (command) {
                         case "SURI":
-                            StreamUri = new Uri(msg);
+                            StreamUri = new Uri(cmd[1]);
                             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
                                 Play();
@@ -108,16 +108,33 @@ namespace CouchTwitch
                                 {
                                     ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
                                 }
+                                mediaStream.IsFullWindow = !mediaStream.IsFullWindow;
                             });
                             break;
                         case "VOL":
                             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                             {
-                                mediaStream.Volume = Convert.ToDouble(msg);
+                                mediaStream.Volume = Convert.ToDouble(cmd[1]);
                             });
                             break;
                         case "PLAY":
-                            //TODO: Add code.
+                            
+                            break;
+                        case "SYNC":
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                Debug.WriteLine(cmd[2]);
+                            DateTime sync = Convert.ToDateTime(cmd[2]);
+                            sync = sync.AddSeconds(10);
+                                Debug.WriteLine(sync.ToString());
+                            mediaStream.Stop();
+                            while(DateTime.Now.Second != sync.Second)
+                            {
+
+                            }
+                            mediaStream.Play();
+                                Debug.WriteLine("Continued.");
+                            });
                             break;
                     }
                     

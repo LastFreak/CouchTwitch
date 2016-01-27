@@ -112,6 +112,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchStreamResult.cs" />
     <Compile Include="Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
     </Compile>
